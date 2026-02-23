@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SmartDoorLockTest {
 
     public static final int PIN = 1234;
-    public static final int WRONG_PIN = 2345;
+    public static final int WRONG_PIN = 23456;
     private MySmartDoorLock smartDoorLock;
 
     @BeforeEach
@@ -27,6 +27,11 @@ public class SmartDoorLockTest {
         smartDoorLock.setPin(PIN);
         smartDoorLock.lock();
         assertTrue(smartDoorLock.isLocked());
+    }
+
+    @Test
+    public void testWrongLengthForPin() {
+        assertThrows(IllegalArgumentException.class, () -> smartDoorLock.setPin(WRONG_PIN));
     }
 
     @Test
