@@ -10,44 +10,50 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SimpleBankAccountTest {
 
+    public static final int EMPTY_BANK_ACCOUNT = 0;
+    public static final int MAXIMUM_BANK_ACCOUNT_AMOUNT = 100;
+    public static final int WITHDRAW_AMOUNT = 70;
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
+    int wrongId = 2;
 
     @BeforeEach
     void beforeEach(){
         accountHolder = new AccountHolder("Mario", "Rossi", 1);
-        bankAccount = new SimpleBankAccount(accountHolder, 0);
+        bankAccount = new SimpleBankAccount(accountHolder, EMPTY_BANK_ACCOUNT);
     }
+
 
     @Test
     void testInitialBalance() {
-        assertEquals(0, bankAccount.getBalance());
+        assertEquals(EMPTY_BANK_ACCOUNT, bankAccount.getBalance());
     }
 
     @Test
     void testDeposit() {
-        bankAccount.deposit(accountHolder.id(), 100);
-        assertEquals(100, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.id(), MAXIMUM_BANK_ACCOUNT_AMOUNT);
+        assertEquals(MAXIMUM_BANK_ACCOUNT_AMOUNT, bankAccount.getBalance());
     }
 
     @Test
     void testWrongDeposit() {
-        bankAccount.deposit(accountHolder.id(), 100);
-        bankAccount.deposit(2, 50);
-        assertEquals(100, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.id(), MAXIMUM_BANK_ACCOUNT_AMOUNT);
+        bankAccount.deposit(wrongId, WITHDRAW_AMOUNT);
+        assertEquals(MAXIMUM_BANK_ACCOUNT_AMOUNT, bankAccount.getBalance());
     }
 
     @Test
     void testWithdraw() {
-        bankAccount.deposit(accountHolder.id(), 100);
-        bankAccount.withdraw(accountHolder.id(), 70);
-        assertEquals(30, bankAccount.getBalance());
+        int expectedAmountAfterWithdraw = 29;
+        bankAccount.deposit(accountHolder.id(), MAXIMUM_BANK_ACCOUNT_AMOUNT);
+        bankAccount.withdraw(accountHolder.id(), WITHDRAW_AMOUNT);
+        assertEquals(expectedAmountAfterWithdraw, bankAccount.getBalance());
     }
 
     @Test
     void testWrongWithdraw() {
-        bankAccount.deposit(accountHolder.id(), 100);
-        bankAccount.withdraw(2, 70);
-        assertEquals(100, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.id(), MAXIMUM_BANK_ACCOUNT_AMOUNT);
+        bankAccount.withdraw(wrongId, WITHDRAW_AMOUNT);
+        assertEquals(MAXIMUM_BANK_ACCOUNT_AMOUNT, bankAccount.getBalance());
     }
 }
