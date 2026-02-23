@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SimpleBankAccountTest {
 
-    public static final int EMPTY_BANK_ACCOUNT = 0;
-    public static final int MAXIMUM_BANK_ACCOUNT_AMOUNT = 100;
-    public static final int WITHDRAW_AMOUNT = 70;
+    private static final int EMPTY_BANK_ACCOUNT = 0;
+    private static final int MAXIMUM_BANK_ACCOUNT_AMOUNT = 100;
+    private static final int WITHDRAW_AMOUNT = 70;
+    private static final int WRONG_ID = 2;
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-    int wrongId = 2;
 
     @BeforeEach
     void beforeEach(){
@@ -38,7 +38,7 @@ class SimpleBankAccountTest {
     @Test
     void testWrongDeposit() {
         bankAccount.deposit(accountHolder.id(), MAXIMUM_BANK_ACCOUNT_AMOUNT);
-        bankAccount.deposit(wrongId, WITHDRAW_AMOUNT);
+        bankAccount.deposit(WRONG_ID, WITHDRAW_AMOUNT);
         assertEquals(MAXIMUM_BANK_ACCOUNT_AMOUNT, bankAccount.getBalance());
     }
 
@@ -53,7 +53,7 @@ class SimpleBankAccountTest {
     @Test
     void testWrongWithdraw() {
         bankAccount.deposit(accountHolder.id(), MAXIMUM_BANK_ACCOUNT_AMOUNT);
-        bankAccount.withdraw(wrongId, WITHDRAW_AMOUNT);
+        bankAccount.withdraw(WRONG_ID, WITHDRAW_AMOUNT);
         assertEquals(MAXIMUM_BANK_ACCOUNT_AMOUNT, bankAccount.getBalance());
     }
 }
