@@ -51,4 +51,12 @@ public class SmartDoorLockTest {
         smartDoorLock.unlock(WRONG_PIN);
         assertTrue(smartDoorLock.isBlocked());
     }
+
+    @Test
+    public  void testResetLock() {
+        smartDoorLock.setPin(PIN);
+        smartDoorLock.lock();
+        smartDoorLock.reset();
+        assertFalse(smartDoorLock.isLocked());
+    }
 }

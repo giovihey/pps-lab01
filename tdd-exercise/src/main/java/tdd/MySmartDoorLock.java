@@ -9,10 +9,7 @@ public class MySmartDoorLock implements SmartDoorLock{
     private int failedAttempts;
 
     public MySmartDoorLock() {
-        this.pin = null;
-        this.locked = false;
-        this.blocked = false;
-        this.failedAttempts = 0;
+        this.reset();
     }
 
     @Override
@@ -64,6 +61,9 @@ public class MySmartDoorLock implements SmartDoorLock{
 
     @Override
     public void reset() {
-
+        this.pin = null;
+        this.locked = false;
+        this.blocked = false;
+        this.failedAttempts = 0;
     }
 }
