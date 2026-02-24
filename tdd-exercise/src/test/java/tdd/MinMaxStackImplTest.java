@@ -23,7 +23,7 @@ class MinMaxStackImplTest {
     @Test
     public void testPushAnItem() {
         minMaxStack.push(VALUE);
-        assertEquals(VALUE, minMaxStack.size());
+        assertEquals(1, minMaxStack.size());
     }
 
     @Test
@@ -54,5 +54,38 @@ class MinMaxStackImplTest {
     @Test
     public void testPeekWhenTheStackIsEmpty() {
         assertThrows(IllegalStateException.class, () -> minMaxStack.peek());
+    }
+
+    @Test
+    public void testGetTheMinimumValue() {
+        final int minValue = 0;
+        minMaxStack.push(VALUE);
+        minMaxStack.push(minValue);
+        assertEquals(minValue, minMaxStack.getMin());
+    }
+
+    @Test
+    public void testGetTheMaximumValue() {
+        final int maxValue = 10;
+        minMaxStack.push(VALUE);
+        minMaxStack.push(maxValue);
+        assertEquals(maxValue, minMaxStack.getMax());
+    }
+
+    @Test
+    public void testGetTheSizeOfTheStack() {
+        final int numberOfItemsInTheStack = 3;
+        minMaxStack.push(VALUE);
+        minMaxStack.push(VALUE);
+        minMaxStack.push(VALUE);
+        assertEquals(numberOfItemsInTheStack, minMaxStack.size());
+    }
+
+    @Test
+    public void testRetrieveButNotRemoveOfThePeek() {
+        minMaxStack.push(VALUE);
+        final int value = minMaxStack.peek();
+        assertEquals(VALUE, value);
+        assertFalse(minMaxStack.isEmpty());
     }
 }
